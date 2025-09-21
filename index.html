@@ -1,1 +1,289 @@
-# Apply
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>分店出攤申請</title>
+<style>
+  :root{
+    --bg:#f6f7fb;--surface:#fff;--text:#0f172a;--muted:#64748b;--border:#e5e7eb;
+    --brand:#111;--brand-press:#000;--radius:14px;--radius-sm:12px;
+  }
+  /* 基礎排版與行為 */
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{height:100%}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans TC","Helvetica Neue",Arial,sans-serif;
+    line-height:1.55;
+  }
+  /* 外框（含安全區邊距） */
+  .wrap{
+    max-width:720px;margin:0 auto;
+    padding: clamp(12px, 2.5vw, 20px);
+    padding-left: calc(clamp(12px, 2.5vw, 20px) + env(safe-area-inset-left));
+    padding-right: calc(clamp(12px, 2.5vw, 20px) + env(safe-area-inset-right));
+    padding-top: calc(clamp(12px, 2.5vw, 20px) + env(safe-area-inset-top));
+    padding-bottom: calc(clamp(12px, 2.5vw, 20px) + env(safe-area-inset-bottom));
+  }
+  /* 標題 */
+  h1{
+    font-size: clamp(18px, 2.6vw, 22px);
+    font-weight:800;letter-spacing:.5px;margin:4px 0 16px;text-align:center
+  }
+  /* 卡片 */
+  .card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    box-shadow:0 10px 24px rgba(15,23,42,.06);
+    padding: clamp(14px, 2.2vw, 18px);
+    margin-bottom: clamp(12px, 2vw, 16px);
+  }
+  .locCard{
+    background:#fafafa;border:1px dashed #d1d5db;border-radius:var(--radius-sm);
+    padding: clamp(12px, 2vw, 14px); margin: clamp(10px, 1.8vw, 12px) 0;
+  }
+  .sectionTitle{
+    display:flex;align-items:center;justify-content:center;
+    font-size: clamp(15px, 2.2vw, 16px);
+    font-weight:800;margin:0 0 8px;color:#111
+  }
+  label{display:block;font-weight:700;margin:10px 0 6px}
+  /* 表單欄位 */
+  input,textarea{
+    width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;background:#fff;color:var(--text);
+    outline:0;transition:border-color .15s,box-shadow .15s;
+    min-height:44px; /* 觸控建議尺寸 */
+    font-size:16px;  /* 避免 iOS 聚焦自動縮放 */
+  }
+  input::placeholder,textarea::placeholder{color:#9aa3b2}
+  input:focus,textarea:focus{border-color:#c7d2fe;box-shadow:0 0 0 4px rgba(99,102,241,.15)}
+  textarea{resize:vertical;min-height:96px;line-height:1.6}
+  input[type="date"]{min-height:44px}
+  /* Grid */
+  .row{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    gap: clamp(10px, 1.8vw, 12px);
+    align-items:flex-start;
+  }
+  .col-6{grid-column:span 6}
+  .col-8{grid-column:span 8}
+  .col-4{grid-column:span 4}
+  .col-12{grid-column:span 12}
+  @media (max-width: 640px){
+    .col-6,.col-8,.col-4{grid-column:span 12}
+  }
+  /* 超小螢幕最佳化 */
+  @media (max-width: 360px){
+    .row{gap:10px}
+    .card{padding:14px}
+    input,textarea{font-size:16px}
+    .btn{font-size:15px}
+  }
+  /* 按鈕 */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:#f3f4f6;color:#111;border:1px solid #e5e7eb;border-radius:12px;
+    padding:10px 14px;cursor:pointer;font-weight:700;transition:filter .15s,transform .02s;
+    min-height:44px;
+  }
+  .btn:hover{filter:brightness(98%)}
+  .btn:active{transform:translateY(1px)}
+  .btn.small{padding:8px 10px;font-size:14px;min-height:40px}
+  .btn-primary{background:var(--brand);color:#fff;border:1px solid #0b0b0b}
+  .btn-primary:hover{filter:brightness(105%)}
+  .btn-primary:active{background:var(--brand-press)}
+  .btn-full{width:100%;padding:14px 16px;border-radius:14px;font-size:16px}
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .toolbar b{font-size:14px;letter-spacing:.2px}
+  .status{text-align:center;margin-top:10px;font-weight:800}
+  footer{margin-top:18px;text-align:center;font-size:12px;color:#6b7280;line-height:1.7}
+  .muted{color:var(--muted)}
+  .hr{height:1px;background:var(--border);margin:12px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>分店出攤申請</h1>
+
+  <!-- 申請表單 -->
+  <div class="card">
+    <div class="sectionTitle">申請資料</div>
+    <div class="hr"></div>
+    <form id="applyForm">
+      <label>分店名稱</label>
+      <input name="分店名稱" required placeholder="例：啃酥菱角酥 和美店">
+      <label>負責人</label>
+      <input name="負責人" required placeholder="例：王小明">
+      <div class="row">
+        <div class="col-6"><label>電話</label><input name="電話" required placeholder="09xx-xxx-xxx"></div>
+        <div class="col-6"><label>Email</label><input name="Email" type="email" required placeholder="you@example.com"></div>
+      </div>
+
+      <div class="hr"></div>
+      <div class="toolbar">
+        <b>出攤地點</b>
+        <button type="button" id="addLocBtn" class="btn small">＋ 新增地點</button>
+      </div>
+      <div id="locWrap"></div>
+
+      <div class="hr"></div>
+      <label>申請說明/備註 <span class="muted" style="font-weight:600">(選填)</span></label>
+      <textarea name="申請說明/備註" placeholder="範例：只輸入此次申請說明"></textarea>
+
+      <!-- 滿版主按鈕 -->
+      <button class="btn btn-primary btn-full" type="submit" style="margin-top:14px">送出申請</button>
+    </form>
+    <div id="submitResult" class="status"></div>
+  </div>
+
+  <!-- 查詢審核狀態 -->
+  <div class="card">
+    <div class="sectionTitle">查詢審核狀態</div>
+    <div class="hr"></div>
+    <form id="queryForm" class="row" style="margin-bottom:6px">
+      <div class="col-8 col-12"><input id="qid" placeholder="例：KS-123456-1"></div>
+      <div class="col-4 col-12"><button class="btn btn-primary btn-full" type="submit">查詢</button></div>
+    </form>
+    <div id="queryBox" class="status"></div>
+    <div id="queryDetails" style="font-size:13px;color:#555;margin-top:6px"></div>
+  </div>
+
+  <footer>
+    酥味香企業社 ｜ 統一編號：93428964<br>
+    地址：台中市石岡區石岡街61號<br>
+    本頁面內容由總部保有修改權利<br>
+    © <span id="year"></span> 啃酥菱角酥 All Rights Reserved.
+  </footer>
+</div>
+
+<script>
+/* === 你的 GAS Web App URL（/exec） === */
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOZfbQZbzHQr5aKfX66IMXczuZzRBF4VzbZAGefMqrYsuNRGMHqmAMqaYYkgDGE3YCrQ/exec";
+
+/* === 動態地點 === */
+function addLoc(){
+  const wrap=document.getElementById("locWrap");
+  const div=document.createElement("div");
+  div.className="locCard";
+  div.innerHTML=`
+    <div class="toolbar" style="margin-bottom:4px">
+      <b>地點</b>
+      <button type="button" class="btn small delBtn">刪除</button>
+    </div>
+    <label>活動名稱</label>
+    <input class="eventName" placeholder="例：旱溪夜市 / 市集活動">
+    <label>出攤地址</label>
+    <input class="eventAddr" placeholder="例：台中市東區旱溪東路一段xx號">
+    <div class="row" style="margin-top:2px">
+      <div class="col-6">
+        <label>開始日期</label>
+        <input type="date" class="startDate">
+      </div>
+      <div class="col-6">
+        <label>結束日期</label>
+        <input type="date" class="endDate">
+      </div>
+    </div>
+    <label>備註</label>
+    <input class="eventNote" placeholder="範例：是否申請為臨時固定攤位">
+  `;
+  div.querySelector(".delBtn").onclick=()=>div.remove();
+  wrap.appendChild(div);
+}
+document.getElementById("addLocBtn").onclick=addLoc;
+addLoc(); // 預設一筆
+
+/* === 送出申請：用 form-urlencoded，避免 CORS 預檢 === */
+document.getElementById("applyForm").onsubmit = async function(e){
+  e.preventDefault();
+  const resEl=document.getElementById("submitResult");
+  resEl.textContent="⏳ 送出中…";
+
+  const fd=new FormData(e.target);
+  const data=Object.fromEntries(fd.entries());
+  const locs=[...document.querySelectorAll("#locWrap .locCard")].map(d=>({
+    活動名稱:d.querySelector(".eventName").value.trim(),
+    出攤地址:d.querySelector(".eventAddr").value.trim(),
+    開始日期:d.querySelector(".startDate").value,
+    結束日期:d.querySelector(".endDate").value,
+    備註:d.querySelector(".eventNote").value.trim()
+  }));
+  data.地點清單=JSON.stringify(locs);
+
+  try{
+    const body=new URLSearchParams();
+    body.set("action","submitApplication");
+    body.set("payload", JSON.stringify(data));
+
+    const resp=await fetch(WEB_APP_URL,{
+      method:"POST",
+      body,           // 不手動設 Content-Type，瀏覽器會自動用 x-www-form-urlencoded
+      mode:"cors",
+      credentials:"omit" // 確保不帶第三方 cookie，降低被擋機率
+    });
+
+    // 若伺服器沒回 JSON，這行會 throw；catch 會顯示「連線錯誤」
+    const json=await resp.json();
+    if(json && json.ok){
+      resEl.innerHTML=`✅ 已送出，申請編號：<b>${json.id}</b>`;
+      e.target.reset();
+      document.getElementById("locWrap").innerHTML="";
+      addLoc();
+      window.scrollTo({top:0,behavior:"smooth"});
+    }else{
+      resEl.textContent="❌ 送出失敗："+((json && json.error) || "未知錯誤");
+    }
+  }catch(err){
+    resEl.textContent="❌ 連線錯誤："+err;
+  }
+};
+
+/* === 查詢審核狀態：用 GET === */
+document.getElementById("queryForm").onsubmit = async function(e){
+  e.preventDefault();
+  const id=document.getElementById("qid").value.trim();
+  const box=document.getElementById("queryBox");
+  const det=document.getElementById("queryDetails");
+  if(!id){ box.textContent="請輸入申請編號"; det.textContent=""; return; }
+  box.textContent="查詢中…"; det.textContent="";
+
+  try{
+    const url=new URL(WEB_APP_URL);
+    url.searchParams.set("action","queryStatus");
+    url.searchParams.set("id",id);
+
+    const resp=await fetch(url.toString(),{ method:"GET", mode:"cors", credentials:"omit" });
+    const res=await resp.json();
+
+    if(res && res.ok){
+      let icon='⏳';
+      if(res.狀態==='通過') icon='✅';
+      else if(res.狀態==='不通過') icon='❌';
+      box.innerHTML=`${icon} 審核狀態：<b>${res.狀態}</b>`+(res.審核時間?`　<span style="color:#6b7280">更新時間：${res.審核時間}</span>`:"");
+      det.innerHTML=`
+        活動名稱：${res.活動名稱 || "—"}<br>
+        出攤地址：${res.出攤地址 || "—"}<br>
+        出攤日期：${res.出攤日期 || "—"}<br>
+        地點備註：${res.備註 || "—"}<br>
+        審核備註：${res.審核備註 || "—"}
+      `;
+    }else{
+      box.textContent="❌ 查無資料";
+      det.textContent="";
+    }
+  }catch(err){
+    box.textContent="❌ 連線錯誤："+err;
+    det.textContent="";
+  }
+};
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+/* 若要快速健康檢查，可在 GAS 加入：
+   if (e.parameter.action === 'ping') return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
+   然後於瀏覽器開： /exec?action=ping 看是否回 {"ok":true} */
+</script>
+</body>
+</html>
