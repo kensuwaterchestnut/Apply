@@ -121,16 +121,18 @@
         <div class="col-6"><label>Email</label><input name="Email" type="email" required placeholder="you@example.com"></div>
       </div>
 
+      <!-- 備註欄位（移到地點前面） -->
+      <div class="hr"></div>
+      <label>申請說明/備註 <span class="muted" style="font-weight:600">(選填)</span></label>
+      <textarea name="申請說明/備註" placeholder="範例：只輸入此次申請說明"></textarea>
+
+      <!-- 出攤地點（整段已移到備註下面） -->
       <div class="hr"></div>
       <div class="toolbar">
         <b>出攤地點</b>
         <button type="button" id="addLocBtn" class="btn small">＋ 新增地點</button>
       </div>
       <div id="locWrap"></div>
-
-      <div class="hr"></div>
-      <label>申請說明/備註 <span class="muted" style="font-weight:600">(選填)</span></label>
-      <textarea name="申請說明/備註" placeholder="範例：只輸入此次申請說明"></textarea>
 
       <!-- 滿版主按鈕 -->
       <button class="btn btn-primary btn-full" type="submit" style="margin-top:14px">送出申請</button>
@@ -219,12 +221,11 @@ document.getElementById("applyForm").onsubmit = async function(e){
 
     const resp=await fetch(WEB_APP_URL,{
       method:"POST",
-      body,           // 不手動設 Content-Type，瀏覽器會自動用 x-www-form-urlencoded
+      body,
       mode:"cors",
-      credentials:"omit" // 確保不帶第三方 cookie，降低被擋機率
+      credentials:"omit"
     });
 
-    // 若伺服器沒回 JSON，這行會 throw；catch 會顯示「連線錯誤」
     const json=await resp.json();
     if(json && json.ok){
       resEl.innerHTML=`✅ 已送出，申請編號：<b>${json.id}</b>`;
