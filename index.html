@@ -58,7 +58,6 @@ body::before{
   z-index:-1;
 }
 
-/* ===== Top ===== */
 .page{
   width:100%;
   min-height:100vh;
@@ -108,7 +107,6 @@ body::before{
   gap:10px;
 }
 
-/* ===== Hero ===== */
 .hero{
   width:min(1120px, calc(100% - 36px));
   margin:0 auto;
@@ -236,7 +234,6 @@ body::before{
   font-size:13px;
 }
 
-/* ===== Layout ===== */
 .wrap{
   width:min(1080px, calc(100% - 36px));
   margin:0 auto;
@@ -314,7 +311,6 @@ body::before{
   font-weight:800;
 }
 
-/* ===== Form ===== */
 label{
   display:block;
   margin:10px 0 7px;
@@ -395,7 +391,6 @@ textarea{
   line-height:1.8;
 }
 
-/* ===== Location Card ===== */
 .loc-card{
   position:relative;
   margin:14px 0;
@@ -455,7 +450,6 @@ textarea{
   font-weight:600;
 }
 
-/* ===== Notice ===== */
 .notice{
   margin-top:18px;
   padding:18px;
@@ -479,7 +473,6 @@ textarea{
   line-height:1.9;
 }
 
-/* ===== Buttons ===== */
 .btn{
   display:inline-flex;
   align-items:center;
@@ -552,6 +545,22 @@ textarea{
   display:none;
 }
 
+.query-item{
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.query-item:last-child{
+  border-bottom:none;
+}
+
+.query-id{
+  display:inline-block;
+  margin-bottom:4px;
+  color:#2d1e14;
+  font-weight:900;
+}
+
 .footer{
   margin-top:20px;
   padding:26px 12px 10px;
@@ -561,7 +570,6 @@ textarea{
   text-align:center;
 }
 
-/* ===== Modal ===== */
 .modal{
   position:fixed;
   inset:0;
@@ -578,7 +586,7 @@ textarea{
 }
 
 .modal-box{
-  width:min(560px,100%);
+  width:min(620px,100%);
   max-height:calc(100vh - 36px);
   overflow:auto;
   background:var(--paper);
@@ -625,7 +633,6 @@ textarea{
   padding:22px 24px 24px;
 }
 
-/* ===== Mobile ===== */
 @media (max-width:900px){
   .topbar{
     width:100%;
@@ -843,7 +850,7 @@ textarea{
           </div>
           <div>
             <b>確認審核結果</b>
-            <span>以申請編號查詢審核狀態。</span>
+            <span>可用總編號或地點編號查詢。</span>
           </div>
         </div>
       </div>
@@ -928,14 +935,13 @@ textarea{
   </main>
 </div>
 
-<!-- 查詢審核結果彈窗 -->
 <div class="modal" id="statusModal" aria-hidden="true">
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="statusTitle">
     <div class="modal-head">
       <div>
         <p class="label-en">APPLICATION STATUS</p>
         <h2 id="statusTitle">查詢審核結果</h2>
-        <p>請輸入申請編號查詢總部審核狀態。</p>
+        <p>可輸入總申請編號查全部地點，也可輸入單一地點編號查指定場次。</p>
       </div>
       <button type="button" class="modal-close" id="closeStatusBtn" aria-label="關閉">×</button>
     </div>
@@ -943,7 +949,7 @@ textarea{
     <div class="modal-body">
       <form id="queryForm" class="row">
         <div class="col-8">
-          <input id="qid" placeholder="例：KS-123456-1">
+          <input id="qid" placeholder="例：KS-123456 或 KS-123456-1">
         </div>
 
         <div class="col-4">
@@ -958,19 +964,26 @@ textarea{
 </div>
 
 <script>
-/* === 你的 GAS Web App URL（/exec） === */
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOZfbQZbzHQr5aKfX66IMXczuZzRBF4VzbZAGefMqrYsuNRGMHqmAMqaYYkgDGE3YCrQ/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzcseG7lshSbJ6F3NAcPjjSGJSPo7yIedGLx-787cv49J0v6q31CRpUwQc1K-Rw-MkMDg/exec";
 
-const SAVE_KEY = "kensu-booth-application.v3";
+const SAVE_KEY = "kensu-booth-application.v4";
 
 const applyForm = document.getElementById("applyForm");
 const locWrap = document.getElementById("locWrap");
 const submitResult = document.getElementById("submitResult");
 
-/* === 彈窗 === */
 const statusModal = document.getElementById("statusModal");
 const openStatusBtn = document.getElementById("openStatusBtn");
 const closeStatusBtn = document.getElementById("closeStatusBtn");
+
+function escapeHtml(value){
+  return String(value == null ? "" : value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
 function openModal(){
   statusModal.classList.add("is-open");
@@ -994,7 +1007,6 @@ document.addEventListener("keydown", e=>{
   if(e.key === "Escape" && statusModal.classList.contains("is-open")) closeModal();
 });
 
-/* === 地點編號 / 圖示 === */
 function locIconSvg(){
   return `
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -1012,7 +1024,6 @@ function updateLocTitle(){
   });
 }
 
-/* === 動態地點 === */
 function addLoc(prefill = {}){
   const div = document.createElement("div");
   div.className = "loc-card";
@@ -1070,7 +1081,6 @@ function addLoc(prefill = {}){
   saveDraft();
 }
 
-/* === 收集地點資料 === */
 function collectLocs(){
   return [...document.querySelectorAll("#locWrap .loc-card")].map(d=>({
     活動名稱:d.querySelector(".eventName").value.trim(),
@@ -1081,7 +1091,6 @@ function collectLocs(){
   }));
 }
 
-/* === 暫存資料 === */
 function saveDraft(){
   try{
     const fd = new FormData(applyForm);
@@ -1125,21 +1134,17 @@ function clearDraft(){
   localStorage.removeItem(SAVE_KEY);
 }
 
-/* === 綁定新增地點 === */
 document.getElementById("addLocBtn").onclick = () => {
   addLoc();
 };
 
-/* === 自動暫存 === */
 applyForm.addEventListener("input", saveDraft);
 applyForm.addEventListener("change", saveDraft);
 locWrap.addEventListener("input", saveDraft);
 locWrap.addEventListener("change", saveDraft);
 
-/* === 載入暫存或預設第一張地點卡 === */
 loadDraft();
 
-/* === 送出申請 === */
 applyForm.onsubmit = async function(e){
   e.preventDefault();
 
@@ -1166,7 +1171,19 @@ applyForm.onsubmit = async function(e){
     const json = await resp.json();
 
     if(json && json.ok){
-      submitResult.innerHTML = `✅ 已送出，申請編號：<b>${json.id}</b>`;
+      const baseId = json.id;
+      const subIds = Array.isArray(json.subIds) && json.subIds.length
+        ? json.subIds
+        : locs.map((_, i) => `${baseId}-${i + 1}`);
+
+      submitResult.innerHTML = `
+        ✅ 已送出<br>
+        總申請編號：<b>${escapeHtml(baseId)}</b><br>
+        <span style="font-size:13px;color:#6f5a49">
+          可用總申請編號查詢全部地點，也可用單一地點編號查詢指定場次。<br>
+          本次地點編號：${subIds.map(id => `<b>${escapeHtml(id)}</b>`).join("、")}
+        </span>
+      `;
 
       clearDraft();
       e.target.reset();
@@ -1187,7 +1204,6 @@ applyForm.onsubmit = async function(e){
   }
 };
 
-/* === 查詢審核狀態 === */
 document.getElementById("queryForm").onsubmit = async function(e){
   e.preventDefault();
 
@@ -1220,25 +1236,45 @@ document.getElementById("queryForm").onsubmit = async function(e){
     const res = await resp.json();
 
     if(res && res.ok){
-      let icon = "⏳";
+      const items = Array.isArray(res.items) && res.items.length ? res.items : [res];
 
-      if(res.狀態 === "通過") icon = "✅";
-      else if(res.狀態 === "不通過") icon = "❌";
+      if(items.length > 1){
+        box.innerHTML = `✅ 查詢成功：共 <b>${items.length}</b> 個出攤地點`;
+      }else{
+        const status = items[0].狀態 || "審核中";
+        let icon = "⏳";
 
-      box.innerHTML = `${icon} 審核狀態：<b>${res.狀態}</b>` + 
-        (res.審核時間 ? `　<span style="color:#6f5a49">更新時間：${res.審核時間}</span>` : "");
+        if(status === "通過") icon = "✅";
+        else if(status === "不通過") icon = "❌";
+
+        box.innerHTML = `${icon} 審核狀態：<b>${escapeHtml(status)}</b>` +
+          (items[0].審核時間 ? `　<span style="color:#6f5a49">更新時間：${escapeHtml(items[0].審核時間)}</span>` : "");
+      }
 
       det.style.display = "block";
-      det.innerHTML = `
-        活動名稱：${res.活動名稱 || "—"}<br>
-        出攤地址：${res.出攤地址 || "—"}<br>
-        出攤日期：${res.出攤日期 || "—"}<br>
-        地點備註：${res.備註 || "—"}<br>
-        審核備註：${res.審核備註 || "—"}
-      `;
+      det.innerHTML = items.map(item => {
+        const status = item.狀態 || "審核中";
+        let icon = "⏳";
+
+        if(status === "通過") icon = "✅";
+        else if(status === "不通過") icon = "❌";
+
+        return `
+          <div class="query-item">
+            <span class="query-id">${escapeHtml(item.申請編號 || "—")}</span><br>
+            ${icon} 審核狀態：<b>${escapeHtml(status)}</b><br>
+            活動名稱：${escapeHtml(item.活動名稱 || "—")}<br>
+            出攤地址：${escapeHtml(item.出攤地址 || "—")}<br>
+            出攤日期：${escapeHtml(item.出攤日期 || "—")}<br>
+            地點備註：${escapeHtml(item.備註 || "—")}<br>
+            審核備註：${escapeHtml(item.審核備註 || "—")}<br>
+            ${item.審核時間 ? `更新時間：${escapeHtml(item.審核時間)}` : ""}
+          </div>
+        `;
+      }).join("");
 
     }else{
-      box.textContent = "❌ 查無資料";
+      box.textContent = "❌ " + ((res && res.error) || "查無資料");
       det.style.display = "none";
       det.textContent = "";
     }
