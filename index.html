@@ -8,41 +8,41 @@
 
 <style>
 :root{
-  --ks-bg:#f6efe4;
-  --ks-bg-soft:#fbf6ee;
-  --ks-paper:#fffaf2;
-  --ks-white:#fff;
-  --ks-text:#2f241b;
-  --ks-text-soft:#6f5a49;
-  --ks-line:rgba(79,54,34,.16);
-  --ks-brown:#6b3f22;
-  --ks-brown-2:#9a6238;
-  --ks-gold:#d99a4e;
-  --ks-gold-soft:#f5d6a2;
-  --ks-red:#b94222;
-  --ks-green:#407834;
-  --ks-shadow:0 22px 60px rgba(69,45,25,.12);
-  --ks-shadow-soft:0 10px 26px rgba(69,45,25,.08);
+  --bg:#f7f0e6;
+  --paper:#fffaf2;
+  --paper2:#fff7eb;
+  --text:#2f241b;
+  --soft:#735f4e;
+  --line:rgba(82,55,35,.16);
+  --brown:#6b3f22;
+  --brown2:#9a6238;
+  --gold:#d99a4e;
+  --red:#b94222;
+  --green:#407834;
+  --shadow:0 18px 48px rgba(69,45,25,.10);
+  --shadow2:0 8px 24px rgba(69,45,25,.07);
 }
 
-*,*::before,*::after{
+*,
+*::before,
+*::after{
   box-sizing:border-box;
 }
 
-html,body{
+html,
+body{
   margin:0;
   min-height:100%;
   -webkit-text-size-adjust:100%;
 }
 
 body{
-  color:var(--ks-text);
+  color:var(--text);
   background:
-    radial-gradient(circle at 8% 5%, rgba(217,154,78,.22), transparent 28%),
-    radial-gradient(circle at 92% 12%, rgba(107,63,34,.10), transparent 32%),
-    linear-gradient(180deg, #fbf6ee 0%, #f6efe4 48%, #fffaf2 100%);
+    radial-gradient(circle at 12% 6%, rgba(217,154,78,.18), transparent 28%),
+    linear-gradient(180deg,#fbf6ee 0%,#f7f0e6 54%,#fffaf2 100%);
   font-family:"Noto Sans TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  line-height:1.65;
+  line-height:1.7;
   overflow-x:hidden;
 }
 
@@ -50,367 +50,253 @@ body::before{
   content:"";
   position:fixed;
   inset:0;
-  z-index:-2;
   pointer-events:none;
-  opacity:.38;
+  opacity:.24;
   background-image:radial-gradient(rgba(107,63,34,.14) 1px, transparent 1px);
-  background-size:20px 20px;
-  mask-image:linear-gradient(180deg,#000 0%,transparent 80%);
-}
-
-.kensu-booth{
-  width:100%;
-  min-height:100vh;
-  overflow:hidden;
-}
-
-/* ===== Hero ===== */
-.kensu-booth-hero{
-  position:relative;
-  width:min(1180px, calc(100% - 36px));
-  margin:0 auto;
-  padding:38px 0 22px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:44px;
-  align-items:center;
-}
-
-.kensu-booth-hero::after{
-  content:"";
-  position:absolute;
-  right:-160px;
-  top:70px;
-  width:340px;
-  height:340px;
-  border-radius:999px;
-  background:rgba(217,154,78,.14);
-  filter:blur(4px);
+  background-size:22px 22px;
+  mask-image:linear-gradient(180deg,#000 0%,transparent 76%);
   z-index:-1;
 }
 
-.kensu-brand{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  margin-bottom:26px;
+/* ===== Top ===== */
+.page{
+  width:100%;
+  min-height:100vh;
 }
 
-.kensu-logo{
-  width:88px;
-  height:auto;
-  display:block;
-}
-
-.kensu-brand-small{
-  margin:0;
-  font-size:12px;
-  letter-spacing:.22em;
-  color:var(--ks-brown-2);
-  font-weight:800;
-}
-
-.kensu-brand-main{
-  margin:4px 0 0;
-  font-size:14px;
-  letter-spacing:.08em;
-  color:var(--ks-text);
-  font-weight:900;
-}
-
-.kensu-kicker{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  margin-bottom:16px;
-  color:var(--ks-brown);
-  font-size:13px;
-  letter-spacing:.18em;
-  font-weight:900;
-}
-
-.kensu-kicker::before{
-  content:"";
-  width:36px;
-  height:1px;
-  background:var(--ks-brown);
-}
-
-.kensu-title{
-  margin:0;
-  font-size:clamp(34px,5vw,64px);
-  line-height:1.08;
-  letter-spacing:.04em;
-  color:#2c1d13;
-  font-weight:900;
-}
-
-.kensu-title span{
-  color:var(--ks-brown);
-}
-
-.kensu-desc{
-  max-width:580px;
-  margin:20px 0 0;
-  color:var(--ks-text-soft);
-  font-size:16px;
-  line-height:2;
-  letter-spacing:.035em;
-}
-
-.kensu-actions{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  flex-wrap:wrap;
-  margin-top:28px;
-}
-
-.kensu-link-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:46px;
-  padding:12px 24px;
-  border-radius:999px;
-  color:#fff;
-  text-decoration:none;
-  font-size:14px;
-  font-weight:900;
-  letter-spacing:.06em;
-  background:linear-gradient(135deg,var(--ks-brown),var(--ks-brown-2));
-  box-shadow:0 14px 30px rgba(107,63,34,.22);
-  transition:.25s ease;
-}
-
-.kensu-link-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 18px 36px rgba(107,63,34,.28);
-}
-
-.kensu-auto{
-  color:var(--ks-text-soft);
-  font-size:13px;
-  line-height:1.7;
-}
-
-.kensu-booth-visual{
-  position:relative;
-  min-height:420px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.visual-card{
-  width:min(500px,100%);
-  padding:26px;
-  border-radius:34px;
-  background:rgba(255,250,242,.76);
-  border:1px solid rgba(107,63,34,.13);
-  box-shadow:var(--ks-shadow);
-  backdrop-filter:blur(14px);
-}
-
-.visual-card-top{
+.topbar{
+  width:min(1120px, calc(100% - 36px));
+  margin:0 auto;
+  padding:24px 0 8px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:16px;
-  padding-bottom:18px;
-  border-bottom:1px solid var(--ks-line);
 }
 
-.visual-label{
-  margin:0 0 6px;
-  color:var(--ks-brown-2);
-  font-size:12px;
-  letter-spacing:.22em;
-  font-weight:900;
-}
-
-.visual-card h2{
-  margin:0;
-  color:#2d1e14;
-  font-size:28px;
-  line-height:1.25;
-  letter-spacing:.04em;
-}
-
-.visual-badge{
-  width:76px;
-  height:76px;
-  border-radius:999px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#2d1e14;
-  color:#fff;
-  font-size:13px;
-  font-weight:900;
-  letter-spacing:.12em;
-  flex:0 0 auto;
-}
-
-.visual-list{
-  display:grid;
-  gap:12px;
-  margin-top:22px;
-}
-
-.visual-item{
+.brand{
   display:flex;
   align-items:center;
   gap:13px;
-  padding:14px 0;
-  border-bottom:1px solid rgba(107,63,34,.10);
 }
 
-.visual-no{
+.brand img{
+  width:72px;
+  height:auto;
+  display:block;
+}
+
+.brand-en{
+  margin:0;
+  font-size:12px;
+  letter-spacing:.22em;
+  color:var(--brown2);
+  font-weight:800;
+}
+
+.brand-name{
+  margin:3px 0 0;
+  font-size:14px;
+  letter-spacing:.08em;
+  color:var(--text);
+  font-weight:800;
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* ===== Hero ===== */
+.hero{
+  width:min(1120px, calc(100% - 36px));
+  margin:0 auto;
+  padding:28px 0 34px;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:44px;
+  align-items:center;
+}
+
+.kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:13px;
+  color:var(--brown);
+  font-size:12px;
+  letter-spacing:.2em;
+  font-weight:800;
+}
+
+.kicker::before{
+  content:"";
   width:34px;
-  height:34px;
+  height:1px;
+  background:var(--brown);
+}
+
+.hero h1{
+  margin:0;
+  color:#2b1c12;
+  font-size:clamp(32px,4.2vw,54px);
+  line-height:1.15;
+  letter-spacing:.05em;
+  font-weight:700;
+}
+
+.hero h1 span{
+  color:var(--brown);
+}
+
+.hero p{
+  max-width:560px;
+  margin:18px 0 0;
+  color:var(--soft);
+  font-size:15.5px;
+  line-height:2;
+  letter-spacing:.03em;
+}
+
+.hero-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-top:26px;
+}
+
+.hero-note{
+  color:var(--soft);
+  font-size:13px;
+}
+
+.hero-card{
+  background:rgba(255,250,242,.78);
+  border:1px solid rgba(107,63,34,.14);
+  box-shadow:var(--shadow);
+  padding:28px;
+  backdrop-filter:blur(12px);
+}
+
+.hero-card-title{
+  margin:0 0 18px;
+  color:#2d1e14;
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:.04em;
+}
+
+.icon-steps{
+  display:grid;
+  gap:12px;
+}
+
+.icon-step{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.icon-step:last-child{
+  border-bottom:none;
+}
+
+.step-icon{
+  width:42px;
+  height:42px;
+  flex:0 0 auto;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:rgba(217,154,78,.18);
-  color:var(--ks-brown);
-  font-size:12px;
-  font-weight:900;
-  flex:0 0 auto;
+  background:rgba(217,154,78,.16);
+  color:var(--brown);
 }
 
-.visual-item b{
+.step-icon svg{
+  width:22px;
+  height:22px;
   display:block;
+}
+
+.icon-step b{
+  display:block;
+  color:#2f241b;
   font-size:15px;
-  color:#2d1e14;
+  font-weight:800;
   margin-bottom:2px;
 }
 
-.visual-item span{
+.icon-step span{
   display:block;
-  color:var(--ks-text-soft);
+  color:var(--soft);
   font-size:13px;
 }
 
-.kensu-float{
-  position:absolute;
-  z-index:3;
-  width:82px;
-  max-width:22vw;
-  pointer-events:none;
-  filter:drop-shadow(0 16px 20px rgba(52,32,17,.22));
-  animation:kensuFloat 4.8s ease-in-out infinite;
-}
-
-.kensu-float.f1{left:4px;top:54px;animation-delay:0s}
-.kensu-float.f2{right:4px;top:24px;animation-delay:.5s}
-.kensu-float.f3{right:8px;bottom:42px;animation-delay:1s}
-.kensu-float.f4{left:22px;bottom:18px;animation-delay:1.6s}
-
-@keyframes kensuFloat{
-  0%,100%{transform:translateY(0) rotate(-2deg)}
-  50%{transform:translateY(-13px) rotate(3deg)}
-}
-
-/* ===== Main ===== */
+/* ===== Layout ===== */
 .wrap{
   width:min(1080px, calc(100% - 36px));
   margin:0 auto;
-  padding:8px 0 64px;
+  padding:0 0 62px;
 }
 
-.flow{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-bottom:18px;
-}
-
-.step{
-  padding:20px 18px;
-  min-height:112px;
-  border-top:1px solid var(--ks-line);
-  border-bottom:1px solid var(--ks-line);
-  background:rgba(255,250,242,.52);
-}
-
-.stepNo{
-  color:var(--ks-brown);
-  font-weight:900;
-  font-size:13px;
-  letter-spacing:.12em;
-  margin-bottom:10px;
-}
-
-.stepTitle{
-  font-size:15px;
-  font-weight:900;
-  color:#342318;
-  margin-bottom:5px;
-}
-
-.stepText{
-  margin:0;
-  color:var(--ks-text-soft);
-  font-size:13px;
-  line-height:1.7;
-}
-
-/* ===== Panels ===== */
 .panel{
   position:relative;
   background:rgba(255,250,242,.86);
   border:1px solid rgba(107,63,34,.14);
-  box-shadow:var(--ks-shadow);
-  border-radius:28px;
+  box-shadow:var(--shadow);
   overflow:hidden;
-  backdrop-filter:blur(14px);
+  backdrop-filter:blur(12px);
   margin-bottom:18px;
 }
 
 .panel::before{
   content:"";
   position:absolute;
-  left:0;
   top:0;
+  left:0;
   width:100%;
-  height:8px;
-  background:linear-gradient(90deg,var(--ks-brown),var(--ks-gold),var(--ks-brown-2));
+  height:6px;
+  background:linear-gradient(90deg,var(--brown),var(--gold),var(--brown2));
 }
 
-.panelInner{
+.panel-inner{
   padding:32px;
 }
 
-.panelHead{
+.panel-head{
   display:flex;
   justify-content:space-between;
   align-items:flex-end;
   gap:20px;
   padding-bottom:18px;
-  border-bottom:1px solid var(--ks-line);
+  border-bottom:1px solid var(--line);
   margin-bottom:22px;
 }
 
-.labelEn{
-  margin:0 0 8px;
-  color:var(--ks-brown-2);
+.label-en{
+  margin:0 0 7px;
+  color:var(--brown2);
   font-size:12px;
   letter-spacing:.22em;
-  font-weight:900;
+  font-weight:800;
 }
 
-.panelHead h2{
+.panel-head h2{
   margin:0;
   color:#2d1e14;
-  font-size:27px;
-  line-height:1.25;
+  font-size:26px;
+  line-height:1.3;
   letter-spacing:.04em;
+  font-weight:700;
 }
 
-.panelHead p{
-  margin:8px 0 0;
-  color:var(--ks-text-soft);
+.panel-head p{
+  margin:7px 0 0;
+  color:var(--soft);
   font-size:13px;
   line-height:1.8;
 }
@@ -420,12 +306,12 @@ body::before{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  padding:9px 15px;
+  padding:8px 14px;
   border-radius:999px;
   background:rgba(185,66,34,.08);
-  color:var(--ks-red);
+  color:var(--red);
   font-size:12px;
-  font-weight:900;
+  font-weight:800;
 }
 
 /* ===== Form ===== */
@@ -434,7 +320,7 @@ label{
   margin:10px 0 7px;
   color:#473122;
   font-size:13px;
-  font-weight:900;
+  font-weight:800;
   letter-spacing:.04em;
 }
 
@@ -444,27 +330,27 @@ textarea{
   min-height:46px;
   border:1px solid rgba(107,63,34,.18);
   background:rgba(255,255,255,.78);
-  border-radius:0;
-  color:var(--ks-text);
+  color:var(--text);
   font-size:16px;
   line-height:1.5;
   padding:13px 14px;
   outline:none;
   appearance:none;
   touch-action:manipulation;
-  transition:border-color .22s ease, box-shadow .22s ease, background .22s ease;
+  border-radius:0;
+  transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
 }
 
 input:focus,
 textarea:focus{
   border-color:rgba(107,63,34,.55);
   background:#fff;
-  box-shadow:0 0 0 4px rgba(217,154,78,.15);
+  box-shadow:0 0 0 4px rgba(217,154,78,.14);
 }
 
 input::placeholder,
 textarea::placeholder{
-  color:rgba(111,90,73,.65);
+  color:rgba(111,90,73,.62);
 }
 
 textarea{
@@ -486,50 +372,47 @@ textarea{
 
 .hr{
   height:1px;
-  background:var(--ks-line);
+  background:var(--line);
   margin:24px 0;
 }
 
-.sectionTitle{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:14px;
+.section-title{
   margin-bottom:14px;
 }
 
-.sectionTitle h3{
+.section-title h3{
   margin:0;
   color:#2d1e14;
-  font-size:22px;
+  font-size:21px;
   letter-spacing:.04em;
+  font-weight:700;
 }
 
-.sectionTitle p{
+.section-title p{
   margin:5px 0 0;
-  color:var(--ks-text-soft);
+  color:var(--soft);
   font-size:13px;
-  line-height:1.7;
+  line-height:1.8;
 }
 
-.locCard{
+/* ===== Location Card ===== */
+.loc-card{
   position:relative;
   margin:14px 0;
   padding:22px;
   border:1px solid rgba(107,63,34,.14);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.68), rgba(255,246,232,.72));
-  box-shadow:var(--ks-shadow-soft);
+  background:linear-gradient(180deg,rgba(255,255,255,.68),rgba(255,246,232,.72));
+  box-shadow:var(--shadow2);
 }
 
-.locCard::before{
+.loc-card::before{
   content:"";
   position:absolute;
   left:0;
   top:0;
   width:5px;
   height:100%;
-  background:linear-gradient(180deg,var(--ks-brown),var(--ks-gold));
+  background:linear-gradient(180deg,var(--brown),var(--gold));
 }
 
 .toolbar{
@@ -542,49 +425,57 @@ textarea{
   border-bottom:1px solid rgba(107,63,34,.12);
 }
 
-.locTitle{
+.loc-title{
   display:flex;
   align-items:center;
   gap:12px;
   color:#2d1e14;
   font-size:16px;
-  font-weight:900;
+  font-weight:800;
   letter-spacing:.04em;
 }
 
-.locBadge{
+.loc-icon{
+  width:42px;
+  height:42px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:42px;
-  height:42px;
   background:#2d1e14;
   color:#fff;
-  font-size:13px;
-  font-weight:900;
-  letter-spacing:.08em;
+}
+
+.loc-icon svg{
+  width:20px;
+  height:20px;
 }
 
 .muted{
-  color:var(--ks-text-soft);
+  color:var(--soft);
   font-weight:600;
 }
 
-.status{
-  margin-top:12px;
-  color:var(--ks-text);
-  font-size:14px;
-  font-weight:900;
-  line-height:1.8;
-  text-align:center;
+/* ===== Notice ===== */
+.notice{
+  margin-top:18px;
+  padding:18px;
+  background:rgba(217,154,78,.10);
+  border:1px solid rgba(107,63,34,.16);
 }
 
-.queryDetails{
-  margin-top:10px;
-  padding:14px;
-  border-top:1px solid var(--ks-line);
-  color:var(--ks-text-soft);
-  font-size:13px;
+.notice h3{
+  margin:0 0 10px;
+  color:#2d1e14;
+  font-size:17px;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+
+.notice ul{
+  margin:0;
+  padding-left:20px;
+  color:var(--soft);
+  font-size:14px;
   line-height:1.9;
 }
 
@@ -594,157 +485,198 @@ textarea{
   align-items:center;
   justify-content:center;
   gap:8px;
-  min-height:46px;
+  min-height:44px;
   cursor:pointer;
   border-radius:0;
-  padding:13px 18px;
+  padding:12px 18px;
   border:1px solid rgba(107,63,34,.20);
   background:#fffaf2;
   color:#3b281b;
-  font-size:15px;
-  font-weight:900;
+  font-size:14px;
+  font-weight:800;
   letter-spacing:.05em;
-  transition:transform .22s ease, box-shadow .22s ease, background .22s ease;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
 }
 
 .btn:hover{
   transform:translateY(-1px);
-  box-shadow:0 12px 24px rgba(69,45,25,.10);
-}
-
-.btn:active{
-  transform:translateY(0);
+  box-shadow:0 10px 22px rgba(69,45,25,.10);
 }
 
 .btn-primary{
   border-color:transparent;
   color:#fff;
-  background:linear-gradient(135deg,var(--ks-brown),var(--ks-brown-2));
-  box-shadow:0 12px 26px rgba(107,63,34,.22);
-}
-
-.btn-danger,
-.delBtn{
-  color:var(--ks-red);
-  background:rgba(255,244,237,.7);
-  border-color:rgba(185,66,34,.24);
+  background:linear-gradient(135deg,var(--brown),var(--brown2));
+  box-shadow:0 10px 24px rgba(107,63,34,.20);
 }
 
 .btn-soft{
-  color:var(--ks-brown);
+  color:var(--brown);
   background:rgba(217,154,78,.12);
   border-color:rgba(107,63,34,.16);
+}
+
+.btn-danger,
+.del-btn{
+  color:var(--red);
+  background:rgba(255,244,237,.72);
+  border-color:rgba(185,66,34,.24);
 }
 
 .btn-full{
   width:100%;
 }
 
-.btn.small{
+.btn-small{
   min-height:38px;
   padding:8px 12px;
   font-size:13px;
 }
 
+.status{
+  margin-top:12px;
+  color:var(--text);
+  font-size:14px;
+  font-weight:800;
+  line-height:1.8;
+  text-align:center;
+}
+
+.query-details{
+  margin-top:12px;
+  padding:14px;
+  border:1px solid var(--line);
+  color:var(--soft);
+  font-size:13px;
+  line-height:1.9;
+  display:none;
+}
+
 .footer{
-  margin-top:22px;
-  padding:28px 12px 10px;
-  color:var(--ks-text-soft);
+  margin-top:20px;
+  padding:26px 12px 10px;
+  color:var(--soft);
   font-size:12px;
   line-height:1.9;
   text-align:center;
 }
 
+/* ===== Modal ===== */
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(37,25,16,.46);
+  z-index:9999;
+}
+
+.modal.is-open{
+  display:flex;
+}
+
+.modal-box{
+  width:min(560px,100%);
+  max-height:calc(100vh - 36px);
+  overflow:auto;
+  background:var(--paper);
+  border:1px solid rgba(107,63,34,.18);
+  box-shadow:0 24px 70px rgba(37,25,16,.28);
+  position:relative;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:16px;
+  padding:24px 24px 16px;
+  border-bottom:1px solid var(--line);
+}
+
+.modal-head h2{
+  margin:0;
+  color:#2d1e14;
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:.04em;
+}
+
+.modal-head p{
+  margin:6px 0 0;
+  color:var(--soft);
+  font-size:13px;
+}
+
+.modal-close{
+  width:38px;
+  height:38px;
+  border:1px solid rgba(107,63,34,.18);
+  background:#fffaf2;
+  cursor:pointer;
+  font-size:22px;
+  line-height:1;
+  color:var(--brown);
+}
+
+.modal-body{
+  padding:22px 24px 24px;
+}
+
 /* ===== Mobile ===== */
 @media (max-width:900px){
-  .kensu-booth-hero{
+  .topbar{
+    width:100%;
+    padding:18px 14px 6px;
+  }
+
+  .brand img{
+    width:64px;
+  }
+
+  .brand-en{
+    font-size:11px;
+  }
+
+  .brand-name{
+    font-size:13px;
+  }
+
+  .hero{
     width:100%;
     grid-template-columns:1fr;
-    gap:14px;
-    padding:26px 16px 10px;
+    gap:18px;
+    padding:20px 14px 28px;
   }
 
-  .kensu-brand{
-    margin-bottom:18px;
+  .hero h1{
+    font-size:34px;
   }
 
-  .kensu-logo{
-    width:74px;
-  }
-
-  .kensu-title{
-    font-size:36px;
-  }
-
-  .kensu-desc{
+  .hero p{
     font-size:15px;
-    line-height:1.9;
   }
 
-  .kensu-actions{
-    align-items:stretch;
-  }
-
-  .kensu-link-btn{
-    width:100%;
-  }
-
-  .kensu-booth-visual{
-    min-height:auto;
-    padding:8px 0 12px;
-  }
-
-  .visual-card{
+  .hero-card{
     padding:20px 16px;
-    border-radius:24px;
   }
-
-  .visual-card-top{
-    align-items:flex-start;
-  }
-
-  .visual-card h2{
-    font-size:24px;
-  }
-
-  .visual-badge{
-    width:62px;
-    height:62px;
-  }
-
-  .kensu-float{
-    width:62px;
-  }
-
-  .kensu-float.f1{left:-2px;top:28px}
-  .kensu-float.f2{right:-2px;top:6px}
-  .kensu-float.f3{right:2px;bottom:18px}
-  .kensu-float.f4{left:8px;bottom:2px}
 
   .wrap{
     width:100%;
-    padding:6px 12px 42px;
-  }
-
-  .flow{
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-  }
-
-  .step{
-    padding:15px 12px;
-    min-height:106px;
+    padding:0 12px 42px;
   }
 
   .panel{
-    border-radius:22px;
+    border-radius:0;
   }
 
-  .panelInner{
+  .panel-inner{
     padding:22px 14px;
   }
 
-  .panelHead{
+  .panel-head{
     display:block;
   }
 
@@ -768,14 +700,9 @@ textarea{
   textarea{
     font-size:16px !important;
     padding:14px 15px !important;
-    width:100% !important;
   }
 
-  .sectionTitle{
-    display:block;
-  }
-
-  .locCard{
+  .loc-card{
     padding:18px 13px 16px;
   }
 
@@ -785,29 +712,37 @@ textarea{
 
   .btn{
     width:100%;
-    min-width:0;
-    padding:14px 16px;
-    font-size:16px;
+    font-size:15px;
+    padding:13px 15px;
   }
 
-  .btn.small{
+  .btn-small{
     width:auto;
     font-size:13px;
     padding:8px 12px;
   }
+
+  .modal-head,
+  .modal-body{
+    padding-left:18px;
+    padding-right:18px;
+  }
 }
 
 @media (max-width:520px){
-  .flow{
-    grid-template-columns:1fr;
+  .topbar{
+    align-items:flex-start;
   }
 
-  .visual-card-top{
-    display:block;
+  .top-actions .btn{
+    width:auto;
+    white-space:nowrap;
+    font-size:13px;
+    padding:9px 11px;
   }
 
-  .visual-badge{
-    margin-top:16px;
+  .hero-actions .btn{
+    width:100%;
   }
 }
 
@@ -822,113 +757,107 @@ textarea{
 </head>
 
 <body>
-<div class="kensu-booth">
+<div class="page">
 
-  <section class="kensu-booth-hero">
-    <div>
-      <div class="kensu-brand">
-        <img class="kensu-logo" src="https://raw.githubusercontent.com/kensuwaterchestnut/ken-su-New-Product-Request/main/%E5%8E%BB%E8%83%8C%E5%9C%96%E9%BB%91%E8%89%B2.png" alt="KenSu 啃酥">
-        <div>
-          <p class="kensu-brand-small">KENSU</p>
-          <p class="kensu-brand-main">KENSU FRIED BRAND</p>
-        </div>
+  <header class="topbar">
+    <div class="brand">
+      <img src="https://raw.githubusercontent.com/kensuwaterchestnut/ken-su-New-Product-Request/main/%E5%8E%BB%E8%83%8C%E5%9C%96%E9%BB%91%E8%89%B2.png" alt="KenSu 啃酥">
+      <div>
+        <p class="brand-en">KENSU</p>
+        <p class="brand-name">KENSU FRIED BRAND</p>
       </div>
+    </div>
 
-      <div class="kensu-kicker">BOOTH APPLICATION</div>
+    <div class="top-actions">
+      <button type="button" class="btn btn-soft btn-small" id="openStatusBtn">查詢審核結果</button>
+    </div>
+  </header>
 
-      <h1 class="kensu-title">
+  <section class="hero">
+    <div>
+      <div class="kicker">BOOTH APPLICATION</div>
+
+      <h1>
         分店<br>
         <span>出攤申請</span>
       </h1>
 
-      <p class="kensu-desc">
-        用於分店回報夜市、市集、活動與臨時攤位申請資料，
-        讓總部能統一確認出攤地點、日期與審核狀態。
+      <p>
+        請填寫分店出攤活動、市集、夜市或臨時攤位申請資料。
+        總部將依品牌規範、區域安排與活動狀況進行審核。
       </p>
 
-      <div class="kensu-actions">
-        <a class="kensu-link-btn" href="#applyArea">開始填寫申請</a>
-        <span class="kensu-auto">填寫中的資料會暫存在目前這台裝置的瀏覽器。</span>
+      <div class="hero-actions">
+        <a href="#applyArea" class="btn btn-primary">開始填寫申請</a>
+        <span class="hero-note">資料會暫存在目前這台裝置的瀏覽器。</span>
       </div>
     </div>
 
-    <div class="kensu-booth-visual">
-      <div class="visual-card">
-        <div class="visual-card-top">
-          <div>
-            <p class="visual-label">APPLICATION FLOW</p>
-            <h2>出攤申請流程</h2>
+    <div class="hero-card">
+      <h2 class="hero-card-title">申請步驟</h2>
+
+      <div class="icon-steps">
+        <div class="icon-step">
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 5h16M4 12h10M4 19h7"></path>
+            </svg>
           </div>
-          <div class="visual-badge">KENSU</div>
+          <div>
+            <b>填寫分店資料</b>
+            <span>留下負責人與聯絡方式。</span>
+          </div>
         </div>
 
-        <div class="visual-list">
-          <div class="visual-item">
-            <div class="visual-no">01</div>
-            <div>
-              <b>填寫分店資料</b>
-              <span>留下分店、負責人與聯絡方式。</span>
-            </div>
+        <div class="icon-step">
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11z"></path>
+              <circle cx="12" cy="10" r="2.4"></circle>
+            </svg>
           </div>
-
-          <div class="visual-item">
-            <div class="visual-no">02</div>
-            <div>
-              <b>新增出攤地點</b>
-              <span>可一次送出多個活動或市集地點。</span>
-            </div>
+          <div>
+            <b>新增出攤地點</b>
+            <span>可一次加入多個活動地點。</span>
           </div>
+        </div>
 
-          <div class="visual-item">
-            <div class="visual-no">03</div>
-            <div>
-              <b>總部審核確認</b>
-              <span>送出後依申請編號查詢審核狀態。</span>
-            </div>
+        <div class="icon-step">
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M7 3h10v18H7z"></path>
+              <path d="M9.5 8h5M9.5 12h5M9.5 16h3"></path>
+            </svg>
+          </div>
+          <div>
+            <b>送出總部審核</b>
+            <span>審核時間與規則由總部安排。</span>
+          </div>
+        </div>
+
+        <div class="icon-step">
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M20 6L9 17l-5-5"></path>
+            </svg>
+          </div>
+          <div>
+            <b>確認審核結果</b>
+            <span>以申請編號查詢審核狀態。</span>
           </div>
         </div>
       </div>
-
-      <img class="kensu-float f1" src="https://raw.githubusercontent.com/kensuwaterchestnut/ken-su-New-Product-Request/main/%E8%8F%B1%E8%A7%92%E9%85%A5%E7%89%B9%E6%95%88%E5%9C%961.png" alt="">
-      <img class="kensu-float f2" src="https://raw.githubusercontent.com/kensuwaterchestnut/ken-su-New-Product-Request/main/%E8%8F%B1%E8%A7%92%E9%85%A5%E7%89%B9%E6%95%88%E5%9C%962.png" alt="">
-      <img class="kensu-float f3" src="https://raw.githubusercontent.com/kensuwaterchestnut/ken-su-New-Product-Request/main/%E8%8F%B1%E8%A7%92%E9%85%A5%E7%89%B9%E6%95%88%E5%9C%963.png" alt="">
-      <img class="kensu-float f4" src="https://raw.githubusercontent.com/kensuwaterchestnut/ken-su-New-Product-Request/main/%E8%8F%B1%E8%A7%92%E9%85%A5%E7%89%B9%E6%95%88%E5%9C%964.png" alt="">
     </div>
   </section>
 
   <main class="wrap" id="applyArea">
 
-    <section class="flow">
-      <div class="step">
-        <div class="stepNo">01</div>
-        <div class="stepTitle">填寫申請資料</div>
-        <p class="stepText">確認分店名稱、負責人與聯絡資訊。</p>
-      </div>
-
-      <div class="step">
-        <div class="stepNo">02</div>
-        <div class="stepTitle">新增出攤地點</div>
-        <p class="stepText">可加入多個活動、夜市或市集地點。</p>
-      </div>
-
-      <div class="step">
-        <div class="stepNo">03</div>
-        <div class="stepTitle">送出總部審核</div>
-        <p class="stepText">系統會產生申請編號方便追蹤。</p>
-      </div>
-
-      <div class="step">
-        <div class="stepNo">04</div>
-        <div class="stepTitle">查詢審核狀態</div>
-        <p class="stepText">輸入申請編號即可確認審核結果。</p>
-      </div>
-    </section>
-
     <section class="panel">
-      <div class="panelInner">
-        <div class="panelHead">
+      <div class="panel-inner">
+
+        <div class="panel-head">
           <div>
-            <p class="labelEn">APPLICATION FORM</p>
+            <p class="label-en">APPLICATION FORM</p>
             <h2>申請資料</h2>
             <p>請完整填寫分店資訊與出攤地點，方便總部進行確認與審核。</p>
           </div>
@@ -961,47 +890,31 @@ textarea{
 
           <div class="hr"></div>
 
-          <div class="sectionTitle">
-            <div>
-              <p class="labelEn">BOOTH LOCATIONS</p>
-              <h3>出攤地點</h3>
-              <p>可一次送出多個活動地點，若只有一個地點，填寫第一筆即可。</p>
-            </div>
+          <div class="section-title">
+            <p class="label-en">BOOTH LOCATIONS</p>
+            <h3>出攤地點</h3>
+            <p>可一次送出多個活動地點，若只有一個地點，填寫第一筆即可。</p>
           </div>
 
           <div id="locWrap"></div>
 
           <button type="button" id="addLocBtn" class="btn btn-soft btn-full" style="margin-top:12px">＋ 新增地點</button>
 
-          <button class="btn btn-primary btn-full" type="submit" style="margin-top:14px">送出申請</button>
+          <div class="notice">
+            <h3>申請注意事項</h3>
+            <ul>
+              <li>審核時間、審核順序與審核規則，皆由啃酥總部依實際情況安排。</li>
+              <li>總部會依活動性質、區域安排、品牌規範、分店配合度進行審核。</li>
+              <li>申請送出不代表一定通過，請以總部審核結果為準。</li>
+              <li>如不符合申請條件，或未遵守出攤與品牌規則，總部得取消該場次申請。</li>
+              <li>若未遵守相關規則，後續將可能無法參與其他場次或活動申請。</li>
+            </ul>
+          </div>
+
+          <button class="btn btn-primary btn-full" type="submit" style="margin-top:16px">送出申請</button>
         </form>
 
         <div id="submitResult" class="status"></div>
-      </div>
-    </section>
-
-    <section class="panel">
-      <div class="panelInner">
-        <div class="panelHead">
-          <div>
-            <p class="labelEn">APPLICATION STATUS</p>
-            <h2>查詢審核狀態</h2>
-            <p>送出申請後，可使用申請編號查詢總部審核結果。</p>
-          </div>
-        </div>
-
-        <form id="queryForm" class="row" style="margin-bottom:6px">
-          <div class="col-8">
-            <input id="qid" placeholder="例：KS-123456-1">
-          </div>
-
-          <div class="col-4">
-            <button class="btn btn-primary btn-full" type="submit">查詢</button>
-          </div>
-        </form>
-
-        <div id="queryBox" class="status"></div>
-        <div id="queryDetails" class="queryDetails" style="display:none"></div>
       </div>
     </section>
 
@@ -1015,37 +928,102 @@ textarea{
   </main>
 </div>
 
+<!-- 查詢審核結果彈窗 -->
+<div class="modal" id="statusModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="statusTitle">
+    <div class="modal-head">
+      <div>
+        <p class="label-en">APPLICATION STATUS</p>
+        <h2 id="statusTitle">查詢審核結果</h2>
+        <p>請輸入申請編號查詢總部審核狀態。</p>
+      </div>
+      <button type="button" class="modal-close" id="closeStatusBtn" aria-label="關閉">×</button>
+    </div>
+
+    <div class="modal-body">
+      <form id="queryForm" class="row">
+        <div class="col-8">
+          <input id="qid" placeholder="例：KS-123456-1">
+        </div>
+
+        <div class="col-4">
+          <button class="btn btn-primary btn-full" type="submit">查詢</button>
+        </div>
+      </form>
+
+      <div id="queryBox" class="status"></div>
+      <div id="queryDetails" class="query-details"></div>
+    </div>
+  </div>
+</div>
+
 <script>
 /* === 你的 GAS Web App URL（/exec） === */
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOZfbQZbzHQr5aKfX66IMXczuZzRBF4VzbZAGefMqrYsuNRGMHqmAMqaYYkgDGE3YCrQ/exec";
 
-const SAVE_KEY = "kensu-booth-application.v2";
+const SAVE_KEY = "kensu-booth-application.v3";
 
 const applyForm = document.getElementById("applyForm");
 const locWrap = document.getElementById("locWrap");
 const submitResult = document.getElementById("submitResult");
 
-/* === 地點編號 === */
-function updateLocIndex(){
-  const cards = [...document.querySelectorAll("#locWrap .locCard")];
+/* === 彈窗 === */
+const statusModal = document.getElementById("statusModal");
+const openStatusBtn = document.getElementById("openStatusBtn");
+const closeStatusBtn = document.getElementById("closeStatusBtn");
+
+function openModal(){
+  statusModal.classList.add("is-open");
+  statusModal.setAttribute("aria-hidden","false");
+  setTimeout(()=>document.getElementById("qid").focus(), 80);
+}
+
+function closeModal(){
+  statusModal.classList.remove("is-open");
+  statusModal.setAttribute("aria-hidden","true");
+}
+
+openStatusBtn.addEventListener("click", openModal);
+closeStatusBtn.addEventListener("click", closeModal);
+
+statusModal.addEventListener("click", e=>{
+  if(e.target === statusModal) closeModal();
+});
+
+document.addEventListener("keydown", e=>{
+  if(e.key === "Escape" && statusModal.classList.contains("is-open")) closeModal();
+});
+
+/* === 地點編號 / 圖示 === */
+function locIconSvg(){
+  return `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11z"></path>
+      <circle cx="12" cy="10" r="2.4"></circle>
+    </svg>
+  `;
+}
+
+function updateLocTitle(){
+  const cards = [...document.querySelectorAll("#locWrap .loc-card")];
   cards.forEach((card,index)=>{
-    const badge = card.querySelector(".locBadge");
-    if(badge) badge.textContent = String(index + 1).padStart(2,"0");
+    const title = card.querySelector(".loc-name");
+    if(title) title.textContent = "出攤地點 " + (index + 1);
   });
 }
 
 /* === 動態地點 === */
 function addLoc(prefill = {}){
   const div = document.createElement("div");
-  div.className = "locCard";
+  div.className = "loc-card";
 
   div.innerHTML = `
     <div class="toolbar">
-      <div class="locTitle">
-        <span class="locBadge">01</span>
-        <span>出攤地點資料</span>
+      <div class="loc-title">
+        <span class="loc-icon">${locIconSvg()}</span>
+        <span class="loc-name">出攤地點</span>
       </div>
-      <button type="button" class="btn small delBtn">刪除</button>
+      <button type="button" class="btn btn-small del-btn">刪除</button>
     </div>
 
     <label>活動名稱</label>
@@ -1076,25 +1054,25 @@ function addLoc(prefill = {}){
   div.querySelector(".endDate").value = prefill.結束日期 || "";
   div.querySelector(".eventNote").value = prefill.備註 || "";
 
-  div.querySelector(".delBtn").onclick = () => {
-    if(document.querySelectorAll("#locWrap .locCard").length <= 1){
+  div.querySelector(".del-btn").onclick = () => {
+    if(document.querySelectorAll("#locWrap .loc-card").length <= 1){
       alert("至少需要保留一個出攤地點");
       return;
     }
 
     div.remove();
-    updateLocIndex();
+    updateLocTitle();
     saveDraft();
   };
 
   locWrap.appendChild(div);
-  updateLocIndex();
+  updateLocTitle();
   saveDraft();
 }
 
 /* === 收集地點資料 === */
 function collectLocs(){
-  return [...document.querySelectorAll("#locWrap .locCard")].map(d=>({
+  return [...document.querySelectorAll("#locWrap .loc-card")].map(d=>({
     活動名稱:d.querySelector(".eventName").value.trim(),
     出攤地址:d.querySelector(".eventAddr").value.trim(),
     開始日期:d.querySelector(".startDate").value,
@@ -1136,7 +1114,7 @@ function loadDraft(){
     const list = Array.isArray(data.地點清單暫存) && data.地點清單暫存.length ? data.地點清單暫存 : [{}];
     list.forEach(item=>addLoc(item));
 
-    updateLocIndex();
+    updateLocTitle();
   }catch(e){
     locWrap.innerHTML = "";
     addLoc();
@@ -1161,7 +1139,7 @@ locWrap.addEventListener("change", saveDraft);
 /* === 載入暫存或預設第一張地點卡 === */
 loadDraft();
 
-/* === 送出申請：用 form-urlencoded，避免 CORS 預檢 === */
+/* === 送出申請 === */
 applyForm.onsubmit = async function(e){
   e.preventDefault();
 
@@ -1209,7 +1187,7 @@ applyForm.onsubmit = async function(e){
   }
 };
 
-/* === 查詢審核狀態：用 GET === */
+/* === 查詢審核狀態 === */
 document.getElementById("queryForm").onsubmit = async function(e){
   e.preventDefault();
 
